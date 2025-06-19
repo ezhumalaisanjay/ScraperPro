@@ -1,0 +1,169 @@
+To fetch **job people (contacts)** and **recent posts** related to an **organization ID** using the Apollo API, and display all in a **single click**, follow this plan:
+
+---
+
+## ✅ Goal
+
+From a single organization:
+
+1. Get **contacts** (people working there)
+2. Get **recent posts** (news, social mentions, etc.)
+
+---
+
+## 🧠 Apollo API Endpoints You'll Need
+
+> Note: Replace `ORGANIZATION_ID` and `API_KEY` as needed.
+
+### 1. **Contacts API**
+
+```http
+GET https://api.apollo.io/v1/organizations/{ORGANIZATION_ID}/people
+```
+
+```ts
+fetch(`https://api.apollo.io/v1/organizations/${id}/people`, {
+  headers: {
+    'x-api-key': API_KEY,
+    'Content-Type': 'application/json',
+  },
+});
+```
+
+---
+
+### 2. **Posts / News**
+
+Apollo API **does not directly offer "recent posts"**, but you can:
+
+* Use \[LinkedIn API] or other social scraping for company posts.
+* Or use a news API like \[NewsData.io], \[ContextualWeb], or \[GNews].
+
+---
+
+## ⚙️ Full Workflow Example in Next.js
+
+### 🗂 `lib/apolloClient.ts`
+
+```ts
+const API_KEY = '0ZYbcwNOALNwPx3myATzhQ';
+
+export const fetchOrganizationPeople = async (orgId: string) => {
+  const res = await fetch(`https://api.apollo.io/v1/organizations/${orgId}/people`, {
+    method: 'GET',
+    headers: {
+      'x-api-key': API_KEY,
+      'Content-Type': 'application/json',
+    },
+  });
+  return res.json();
+};
+```
+
+---
+
+### 📄 `app/page.tsx` (or a separate component)
+
+```tsx
+'use client';
+
+import { useState } from 'react';
+import { fetchBulkOrgs, fetchOrganizationPeople } from '@/lib/apolloClient';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+
+export default function OrgWithPeople() {
+  const [domain, setDomain] = useState('');
+  const [organization, setOrganization] = useState<any>(null);
+  const [contacts, setContacts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const handleFetch = async () => {
+    setLoading(true);
+    const orgRes = await fetchBulkOrgs([domain]);
+    const org = orgRes.organizations?.[0];
+    setOrganization(org);
+
+    if (org?.id) {
+      const peopleRes = await fetchOrganizationPeople(org.id);
+      setContacts(peopleRes.people || []);
+    }
+
+    setLoading(false);
+  };
+
+  return (
+    <main className="p-6 max-w-3xl mx-auto">
+      <h1 className="text-2xl font-bold mb-4">Org Details + Contacts</h1>
+
+      <div className="flex gap-2 mb-4">
+        <Input
+          value={domain}
+          onChange={e => setDomain(e.target.value)}
+          placeholder="Enter domain (e.g., google.com)"
+        />
+        <Button onClick={handleFetch}>Fetch All</Button>
+      </div>
+
+      {loading && <p>Loading...</p>}
+
+      {organization && (
+        <div className="mb-6">
+          <h2 className="text-xl font-semibold">{organization.name}</h2>
+          <p>{organization.website_url}</p>
+        </div>
+      )}
+
+      {contacts.length > 0 && (
+        <div>
+          <h3 className="text-lg font-semibold mb-2">Contacts</h3>
+          <ul className="list-disc pl-4">
+            {contacts.map((person, idx) => (
+              <li key={idx}>
+                {person.name} – {person.title}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </main>
+  );
+}
+```
+
+---
+
+### 🧪 Test It
+
+1. Enter domain (e.g., `hubspot.com`)
+2. Click **Fetch All**
+3. App will:
+
+   * Fetch org data using domain
+   * Use `org.id` to fetch people
+
+---
+
+### 🛡 Optional Secure Setup with `.env`
+
+```env
+NEXT_PUBLIC_APOLLO_API_KEY=0ZYbcwNOALNwPx3myATzhQ
+```
+
+Then access via:
+
+```ts
+process.env.NEXT_PUBLIC_APOLLO_API_KEY
+```
+
+---
+
+### 📦 Next Steps
+
+Would you like help:
+
+* Adding recent **social/news posts**?
+* Using **ShadCN cards or modals** for people display?
+* Securing the API key via **Next.js API route**?
+
+Let me know what to include next.

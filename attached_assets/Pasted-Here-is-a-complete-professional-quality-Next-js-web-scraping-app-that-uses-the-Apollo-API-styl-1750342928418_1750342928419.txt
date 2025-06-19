@@ -1,0 +1,168 @@
+Here is a complete, professional-quality **Next.js** web scraping app that uses the Apollo API, styled with **ShadCN UI** and **Lucide icons**. It includes two fetch options:
+
+* Enrich a single organization
+* Bulk enrich based on domain(s)
+
+---
+
+### ✅ **Project Setup**
+
+1. **Create Next.js App**:
+
+```bash
+npx create-next-app@latest apollo-scraper-app
+cd apollo-scraper-app
+```
+
+2. **Install Dependencies**:
+
+```bash
+npm install @shadcn/ui lucide-react
+```
+
+3. **Initialize ShadCN UI**:
+
+```bash
+npx shadcn-ui@latest init
+```
+
+Choose the default options or configure as needed.
+
+---
+
+### 📁 **Project Structure**
+
+Your structure should look like:
+
+```
+/apollo-scraper-app
+  /components
+    OrganizationCard.tsx
+  /app
+    /page.tsx
+```
+
+---
+
+### 📄 `lib/apolloClient.ts`
+
+```ts
+const API_KEY = '0ZYbcwNOALNwPx3myATzhQ';
+
+export const fetchSingleOrg = async () => {
+  const res = await fetch('https://api.apollo.io/api/v1/organizations/enrich', {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      'Cache-Control': 'no-cache',
+      'Content-Type': 'application/json',
+      'x-api-key': API_KEY,
+    },
+  });
+  return res.json();
+};
+
+export const fetchBulkOrgs = async (domains: string[]) => {
+  const res = await fetch(`https://api.apollo.io/api/v1/organizations/bulk_enrich?${domains.map(d => `domains[]=${d}`).join('&')}`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'Cache-Control': 'no-cache',
+      'Content-Type': 'application/json',
+      'x-api-key': API_KEY,
+    },
+  });
+  return res.json();
+};
+```
+
+---
+
+### 📄 `components/OrganizationCard.tsx`
+
+```tsx
+'use client';
+import { Building } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+
+export default function OrganizationCard({ org }: { org: any }) {
+  return (
+    <Card className="p-4 my-4">
+      <CardContent className="flex items-center gap-4">
+        <Building className="w-6 h-6 text-blue-600" />
+        <div>
+          <p className="font-semibold">{org.name}</p>
+          <p className="text-sm text-gray-500">{org.website_url}</p>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+---
+
+### 📄 `app/page.tsx`
+
+```tsx
+'use client';
+
+import { useEffect, useState } from 'react';
+import { fetchBulkOrgs } from '@/lib/apolloClient';
+import OrganizationCard from '@/components/OrganizationCard';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+
+export default function Home() {
+  const [domains, setDomains] = useState<string>('');
+  const [results, setResults] = useState<any[]>([]);
+
+  const handleFetch = async () => {
+    const domainList = domains.split(',').map(d => d.trim());
+    const data = await fetchBulkOrgs(domainList);
+    setResults(data.organizations || []);
+  };
+
+  return (
+    <main className="p-6 max-w-3xl mx-auto">
+      <h1 className="text-2xl font-bold mb-4">Apollo.io Org Lookup</h1>
+
+      <div className="flex gap-2 mb-4">
+        <Input
+          value={domains}
+          onChange={e => setDomains(e.target.value)}
+          placeholder="Enter domains, comma-separated (e.g., google.com,amazon.com)"
+        />
+        <Button onClick={handleFetch}>Search</Button>
+      </div>
+
+      {results.length > 0 ? (
+        results.map((org, idx) => <OrganizationCard key={idx} org={org} />)
+      ) : (
+        <p className="text-gray-500">No results yet.</p>
+      )}
+    </main>
+  );
+}
+```
+
+---
+
+### 🧪 Test Locally
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) and test by entering domains.
+
+---
+
+### 🔐 Security Tip
+
+* Do **not expose API keys** on client-side in production.
+* You should use **Next.js API routes** (`/api/enrich`) and move the key to `.env` for safety.
+
+---
+
+Would you like me to convert this into a secure version using API routes and `.env` config?
