@@ -1,0 +1,369 @@
+{
+  "organization": {
+    "id": "5da4829903c66e0001c84517",
+    "name": "Sixty One Steps - Zoho Authorised Partner",
+    "website_url": "http://www.sixtyonesteps.com",
+    "blog_url": null,
+    "angellist_url": null,
+    "linkedin_url": "http://www.linkedin.com/company/sixty-one-steps-advertising-pvt-ltd",
+    "twitter_url": null,
+    "facebook_url": "https://www.facebook.com/sixtyonesteps",
+    "primary_phone": {
+      "number": "+91 99620 61061",
+      "source": "Scraped",
+      "sanitized_number": "+919962061061"
+    },
+    "languages": [],
+    "alexa_ranking": null,
+    "phone": "+91 99620 61061",
+    "linkedin_uid": "14511671",
+    "founded_year": 2015,
+    "publicly_traded_symbol": null,
+    "publicly_traded_exchange": null,
+    "logo_url": "https://zenprospect-production.s3.amazonaws.com/uploads/pictures/682ef67e14a50a000139bd75/picture",
+    "crunchbase_url": null,
+    "primary_domain": "sixtyonesteps.com",
+    "sanitized_phone": "+919962061061",
+    "industry": "information technology & services",
+    "estimated_num_employees": 10,
+    "keywords": [
+      "crm",
+      "zoho",
+      "zoho partners chennai",
+      "zoho crm",
+      "zoho creator",
+      "low code apps",
+      "custom software applications",
+      "zoho one",
+      "website design",
+      "development",
+      "web development",
+      "digital marketing",
+      "ppc",
+      "seo",
+      "cloud solutions",
+      "saas consultation",
+      "erp",
+      "aws services",
+      "crm implementation",
+      "crm training",
+      "saas",
+      "it services & it consulting",
+      "zoho partner",
+      "digital transformation",
+      "zoho implementation",
+      "cloud services",
+      "process consulting",
+      "customer experience",
+      "hr management",
+      "marketing automation",
+      "website development",
+      "team collaboration",
+      "custom software solutions",
+      "erp integration",
+      "data migration",
+      "business automation",
+      "gross product value",
+      "field service management",
+      "ai solutions",
+      "iot integration",
+      "user training",
+      "software support",
+      "custom application development",
+      "saas solutions",
+      "online fundraising",
+      "non-profit solutions",
+      "donor management",
+      "sales management",
+      "inventory management",
+      "financial reporting",
+      "workflow automation",
+      "customer insights",
+      "business analytics",
+      "lead generation",
+      "project management",
+      "email integration",
+      "data optimization",
+      "remote support",
+      "user adoption training",
+      "customization services",
+      "flexible pricing",
+      "consulting services",
+      "analytics dashboard",
+      "operational efficiency",
+      "business value",
+      "application integration",
+      "client engagement",
+      "budget management",
+      "employee experience",
+      "multi-channel support",
+      "sales",
+      "enterprise software",
+      "enterprises",
+      "computer software",
+      "information technology & services",
+      "b2b",
+      "web design",
+      "marketing & advertising",
+      "search marketing",
+      "marketing",
+      "cloud computing",
+      "software development",
+      "productivity",
+      "management consulting"
+    ],
+    "industries": [
+      "information technology & services",
+      "computer software"
+    ],
+    "secondary_industries": [
+      "computer software"
+    ],
+    "snippets_loaded": true,
+    "industry_tag_id": "5567cd4773696439b10b0000",
+    "industry_tag_hash": {
+      "information technology & services": "5567cd4773696439b10b0000",
+      "computer software": "5567cd4e7369643b70010000"
+    },
+    "retail_location_count": 0,
+    "raw_address": "W 660, IVth Avenue Annanagar West Extn, Chennai, Tamilnadu 600101, IN",
+    "street_address": "",
+    "city": "Chennai",
+    "state": "Tamil Nadu",
+    "postal_code": "600101",
+    "country": "India",
+    "owned_by_organization_id": null,
+    "short_description": "Sixty One Steps is a data-driven digital agency located in Chennai, India, founded in 2015. The company specializes in cloud-managed services, design and development, and digital marketing solutions, catering primarily to small and medium-sized enterprises (SMEs). As a Zoho Authorized Partner and Freshworks Authorized Partner Reseller, Sixty One Steps offers tailored services to help businesses transition to cloud-based systems and enhance their digital presence.\n\nTheir service offerings include comprehensive cloud management, custom design and development, and a full suite of digital marketing services such as social media management, content creation, website maintenance, and SEO. Additionally, Sixty One Steps provides business process consulting to assist SMEs in adopting technology effectively and offers white label solutions for other digital agencies. The company serves a diverse range of clients, including restaurants, martial arts training centers, and FMCG manufacturers.",
+    "suborganizations": [],
+    "num_suborganizations": 0,
+    "total_funding": null,
+    "total_funding_printed": null,
+    "latest_funding_round_date": null,
+    "latest_funding_stage": null,
+    "funding_events": [],
+    "technology_names": [
+      "AI",
+      "Amazon SES",
+      "Android",
+      "Automation Anywhere",
+      "Basis",
+      "Bootstrap Framework",
+      "Circle",
+      "Data Analytics",
+      "Google Font API",
+      "Google Tag Manager",
+      "Microsoft Office 365",
+      "Mobile Friendly",
+      "Nginx",
+      "Oracle Cloud",
+      "Outlook",
+      "Remote",
+      "Route 53",
+      "SAP",
+      "WordPress.org",
+      "Wordpress.com",
+      "Zoho CRM",
+      "Zoho Creator",
+      "Zoho One",
+      "Zoho SalesIQ",
+      "reCAPTCHA"
+    ],
+    "current_technologies": [
+      {
+        "uid": "ai",
+        "name": "AI",
+        "category": "Other"
+      },
+      {
+        "uid": "amazon_ses",
+        "name": "Amazon SES",
+        "category": "Email Delivery"
+      },
+      {
+        "uid": "android",
+        "name": "Android",
+        "category": "Frameworks and Programming Languages"
+      },
+      {
+        "uid": "automation anywhere",
+        "name": "Automation Anywhere",
+        "category": "Robotic Process Automation"
+      },
+      {
+        "uid": "basis",
+        "name": "Basis",
+        "category": "Advertising Networks"
+      },
+      {
+        "uid": "bootstrap_framework",
+        "name": "Bootstrap Framework",
+        "category": "CSS and JavaScript Libraries"
+      },
+      {
+        "uid": "circle",
+        "name": "Circle",
+        "category": "Financial Software"
+      },
+      {
+        "uid": "data analytics",
+        "name": "Data Analytics",
+        "category": "Analytics and Tracking"
+      },
+      {
+        "uid": "google_font_api",
+        "name": "Google Font API",
+        "category": "Fonts"
+      },
+      {
+        "uid": "google_tag_manager",
+        "name": "Google Tag Manager",
+        "category": "Tag Management"
+      },
+      {
+        "uid": "office_365",
+        "name": "Microsoft Office 365",
+        "category": "Other"
+      },
+      {
+        "uid": "mobile_friendly",
+        "name": "Mobile Friendly",
+        "category": "Other"
+      },
+      {
+        "uid": "nginx",
+        "name": "Nginx",
+        "category": "Load Balancers"
+      },
+      {
+        "uid": "oracle_cloud",
+        "name": "Oracle Cloud",
+        "category": "Hosting"
+      },
+      {
+        "uid": "outlook",
+        "name": "Outlook",
+        "category": "Email Providers"
+      },
+      {
+        "uid": "remote",
+        "name": "Remote",
+        "category": "Other"
+      },
+      {
+        "uid": "route_53",
+        "name": "Route 53",
+        "category": "Domain Name Services"
+      },
+      {
+        "uid": "sap",
+        "name": "SAP",
+        "category": "Customer Relationship Management"
+      },
+      {
+        "uid": "wordpress_org",
+        "name": "WordPress.org",
+        "category": "CMS"
+      },
+      {
+        "uid": "wordpress_com",
+        "name": "Wordpress.com",
+        "category": "CMS"
+      },
+      {
+        "uid": "zoho_crm",
+        "name": "Zoho CRM",
+        "category": "Customer Relationship Management"
+      },
+      {
+        "uid": "zoho creator",
+        "name": "Zoho Creator",
+        "category": "Other"
+      },
+      {
+        "uid": "zoho one",
+        "name": "Zoho One",
+        "category": "Cloud Services"
+      },
+      {
+        "uid": "zoho_sales_iq",
+        "name": "Zoho SalesIQ",
+        "category": "Widgets"
+      },
+      {
+        "uid": "recaptcha",
+        "name": "reCAPTCHA",
+        "category": "Captcha"
+      }
+    ],
+    "org_chart_root_people_ids": [],
+    "org_chart_sector": "OrgChart::SectorHierarchy::Rules::IT",
+    "org_chart_removed": null,
+    "org_chart_show_department_filter": null,
+    "account_id": "685414b909d791000d33c612",
+    "account": {
+      "raw_address": "w 660, ivth avenue annanagar west extn, chennai, tamilnadu 600101, in",
+      "street_address": "",
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "postal_code": "600101",
+      "id": "685414b909d791000d33c612",
+      "domain": "sixtyonesteps.com",
+      "name": "Sixty One Steps - Zoho Authorised Partner",
+      "team_id": "67c2944b9babbc0015b71f42",
+      "organization_id": "5da4829903c66e0001c84517",
+      "account_stage_id": "67c2944b9babbc0015b71f4d",
+      "source": "deployment",
+      "original_source": "deployment",
+      "creator_id": "67c2944f9babbc0015b720ed",
+      "owner_id": "67c2944f9babbc0015b720ed",
+      "created_at": "2025-06-19T13:46:33.820Z",
+      "phone": "+91 99620 61061",
+      "phone_status": "no_status",
+      "hubspot_id": null,
+      "salesforce_id": null,
+      "crm_owner_id": null,
+      "parent_account_id": null,
+      "linkedin_url": null,
+      "sanitized_phone": "+919962061061",
+      "account_playbook_statuses": [],
+      "existence_level": "full",
+      "label_ids": [],
+      "typed_custom_fields": {},
+      "custom_field_errors": {},
+      "modality": "account",
+      "source_display_name": "Requested from Apollo",
+      "crm_record_url": null,
+      "twitter_url": null,
+      "facebook_url": null,
+      "intent_strength": null,
+      "show_intent": false,
+      "organization_headcount_six_month_growth": null,
+      "organization_headcount_twelve_month_growth": null,
+      "organization_headcount_twenty_four_month_growth": null,
+      "generic_org_insights": null
+    },
+    "departmental_head_count": {
+      "engineering": 7,
+      "entrepreneurship": 2,
+      "arts_and_design": 1,
+      "accounting": 0,
+      "sales": 0,
+      "operations": 0,
+      "finance": 0,
+      "marketing": 0,
+      "human_resources": 0,
+      "information_technology": 0,
+      "legal": 0,
+      "business_development": 0,
+      "product_management": 0,
+      "consulting": 0,
+      "education": 0,
+      "administrative": 0,
+      "media_and_commmunication": 0,
+      "support": 0,
+      "data_science": 0
+    },
+    "generic_org_insights": null
+  }
+}
