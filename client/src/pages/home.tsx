@@ -17,6 +17,8 @@ export default function Home() {
     queryFn: async () => {
       if (!searchParams) return null;
       
+      console.log("Making API request with params:", searchParams);
+      
       const response = await fetch("/api/organizations/enrich", {
         method: "POST",
         headers: {
@@ -25,12 +27,25 @@ export default function Home() {
         body: JSON.stringify(searchParams),
       });
       
+      console.log("API response status:", response.status);
+      
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
+        const errorText = await response.text();
+        console.error("API error response:", errorText);
+        
+        let errorData;
+        try {
+          errorData = JSON.parse(errorText);
+        } catch {
+          errorData = { message: errorText || `HTTP ${response.status}: ${response.statusText}` };
+        }
+        
         throw new Error(errorData.message || `HTTP ${response.status}: ${response.statusText}`);
       }
       
-      return response.json();
+      const result = await response.json();
+      console.log("API success response:", result);
+      return result;
     },
     enabled: !!searchParams,
   });
@@ -124,6 +139,16 @@ export default function Home() {
                   <p className="text-sm text-red-700 mt-1">
                     {error instanceof Error ? error.message : "Failed to fetch organization data. Please check your API key and try again."}
                   </p>
+                  <details className="mt-2">
+                    <summary className="text-xs text-red-600 cursor-pointer">Debug Info</summary>
+                    <pre className="text-xs text-red-600 mt-1 p-2 bg-red-100 rounded">
+                      {JSON.stringify({
+                        error: error instanceof Error ? error.message : String(error),
+                        searchParams,
+                        timestamp: new Date().toISOString()
+                      }, null, 2)}
+                    </pre>
+                  </details>
                 </div>
               </div>
             </CardContent>
