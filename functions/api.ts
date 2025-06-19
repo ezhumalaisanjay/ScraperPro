@@ -1,30 +1,35 @@
 import { Handler } from '@netlify/functions';
-import { enrichmentRequestSchema } from '../shared/schema';
+import { z } from 'zod';
+
+// Define schemas directly in the function to avoid import issues
+const enrichmentRequestSchema = z.object({
+  domains: z.array(z.string()).min(1, "At least one domain is required"),
+  searchType: z.enum(["single", "bulk"]),
+});
 
 const APOLLO_API_KEY = process.env.APOLLO_API_KEY;
 
-export const handler: Handler = async (event, context) => {
-  // Handle CORS
+const handler: Handler = async (event, context) => {
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Content-Type': 'application/json',
+  };
+
+  // Handle CORS preflight
   if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      },
+      headers,
       body: '',
     };
   }
 
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Content-Type': 'application/json',
-  };
-
   try {
-    const path = event.path.replace('/.netlify/functions/api', '');
+    const path = event.path.replace('/.netlify/functions/api', '') || '/';
+
+    console.log('Function called:', { path, method: event.httpMethod });
 
     // Health check endpoint
     if (path === '/health' && event.httpMethod === 'GET') {
@@ -34,7 +39,8 @@ export const handler: Handler = async (event, context) => {
         body: JSON.stringify({
           status: 'healthy',
           apollo_api_configured: !!APOLLO_API_KEY,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
+          path: event.path
         }),
       };
     }
@@ -49,9 +55,15 @@ export const handler: Handler = async (event, context) => {
         };
       }
 
-      const { domains, searchType } = enrichmentRequestSchema.parse(JSON.parse(event.body));
+      if (!APOLLO_API_KEY) {
+        return {
+          statusCode: 500,
+          headers,
+          body: JSON.stringify({ message: 'Apollo API key not configured' }),
+        };
+      }
 
-      let apolloResponse;
+      const { domains, searchType } = enrichmentRequestSchema.parse(JSON.parse(event.body));
 
       if (searchType === "single") {
         const response = await fetch(`https://api.apollo.io/api/v1/organizations/enrich?domain=${encodeURIComponent(domains[0])}`, {
@@ -60,7 +72,7 @@ export const handler: Handler = async (event, context) => {
             "accept": "application/json",
             "Cache-Control": "no-cache",
             "Content-Type": "application/json",
-            "x-api-key": APOLLO_API_KEY!,
+            "x-api-key": APOLLO_API_KEY,
           },
         });
 
@@ -68,7 +80,7 @@ export const handler: Handler = async (event, context) => {
           throw new Error(`Apollo API error: ${response.status} ${response.statusText}`);
         }
 
-        apolloResponse = await response.json();
+        const apolloResponse = await response.json();
         const organizations = apolloResponse.organization ? [apolloResponse.organization] : [];
         
         return {
@@ -85,7 +97,7 @@ export const handler: Handler = async (event, context) => {
             "accept": "application/json",
             "Cache-Control": "no-cache",
             "Content-Type": "application/json",
-            "x-api-key": APOLLO_API_KEY!,
+            "x-api-key": APOLLO_API_KEY,
           },
         });
 
@@ -93,7 +105,7 @@ export const handler: Handler = async (event, context) => {
           throw new Error(`Apollo API error: ${response.status} ${response.statusText}`);
         }
 
-        apolloResponse = await response.json();
+        const apolloResponse = await response.json();
         
         return {
           statusCode: 200,
@@ -107,13 +119,21 @@ export const handler: Handler = async (event, context) => {
     if (path.match(/^\/organizations\/[^\/]+\/contacts$/) && event.httpMethod === 'GET') {
       const orgId = path.split('/')[2];
 
+      if (!APOLLO_API_KEY) {
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ contacts: [] }),
+        };
+      }
+
       const response = await fetch(`https://api.apollo.io/api/v1/mixed_people/search`, {
         method: "POST",
         headers: {
           "accept": "application/json",
           "Cache-Control": "no-cache",
           "Content-Type": "application/json",
-          "x-api-key": APOLLO_API_KEY!,
+          "x-api-key": APOLLO_API_KEY,
         },
         body: JSON.stringify({
           organization_ids: [orgId],
@@ -142,7 +162,11 @@ export const handler: Handler = async (event, context) => {
     return {
       statusCode: 404,
       headers,
-      body: JSON.stringify({ message: 'Not found' }),
+      body: JSON.stringify({ 
+        message: 'Not found',
+        path: path,
+        availableEndpoints: ['/health', '/organizations/enrich', '/organizations/:id/contacts']
+      }),
     };
 
   } catch (error) {
@@ -157,3 +181,5 @@ export const handler: Handler = async (event, context) => {
     };
   }
 };
+
+export { handler };
