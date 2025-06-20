@@ -19,11 +19,31 @@ export default function SearchSection({ onSearch, onClear, isLoading }: SearchSe
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!domains.trim()) return;
-    
+
     const domainList = domains.split(",").map(d => d.trim()).filter(Boolean);
     if (domainList.length === 0) return;
-    
-    onSearch(domainList, searchType);
+
+    // Helper function to extract clean domain from URL
+    const extractDomain = (input: string): string => {
+      try {
+        // Remove protocol if present
+        let domain = input.replace(/^https?:\/\//, '');
+        // Remove www. if present
+        domain = domain.replace(/^www\./, '');
+        // Remove trailing slash and path
+        domain = domain.split('/')[0];
+        // Remove port if present
+        domain = domain.split(':')[0];
+        return domain;
+      } catch {
+        return input;
+      }
+    };
+
+    const cleanDomains = domainList.map(extractDomain);
+
+
+    onSearch(cleanDomains, searchType);
   };
 
   const handleClear = () => {
