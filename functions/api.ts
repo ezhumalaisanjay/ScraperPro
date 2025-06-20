@@ -27,9 +27,18 @@ const handler: Handler = async (event, context) => {
   }
 
   try {
-    const path = event.path.replace('/.netlify/functions/api', '') || '/';
-
-    console.log('Function called:', { path, method: event.httpMethod });
+    // Remove both possible prefixes to get the clean path
+    let path = event.path.replace('/.netlify/functions/api', '') || '/';
+    // Also handle direct API calls
+    if (path.startsWith('/api')) {
+      path = path.replace('/api', '');
+    }
+    
+    console.log('Function called:', { 
+      originalPath: event.path, 
+      cleanPath: path, 
+      method: event.httpMethod 
+    });
 
     // Health check endpoint
     if (path === '/health' && event.httpMethod === 'GET') {
